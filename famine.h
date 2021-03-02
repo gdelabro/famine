@@ -13,7 +13,7 @@
 # include <elf.h>
 # include <dirent.h>
 
-#define signature "Famine (c)oded feb-2021 by gdelabro"
+#define signature "Famine version 1.0 (c)oded feb-2021 by gdelabro"
 
 typedef struct s_famine
 {
