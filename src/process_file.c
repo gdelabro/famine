@@ -117,6 +117,7 @@ void	process_file(char *name, char *path)
 	int				fd;
 	struct stat		buf;
 	void			*ptr;
+	DIR				*test_dir;
 
 	if ((fd = open(path, O_RDONLY) < 0))
 		return ;
@@ -124,9 +125,9 @@ void	process_file(char *name, char *path)
 		return ((void)close(fd));
 	if (!strcmp(".", name) || !strcmp("..", name))
 		return ((void)close(fd));
-	if (S_ISDIR(buf.st_mode))
+	if ((test_dir = opendir(path)))
 	{
-	printf("%s\n", path);
+		closedir(test_dir);
 		close(fd);
 		return (process_directory(path));
 	}
