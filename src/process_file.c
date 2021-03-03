@@ -118,7 +118,6 @@ void	process_file(char *name, char *path)
 	struct stat		buf;
 	void			*ptr;
 
-	printf("%s\n", path);
 	if ((fd = open(path, O_RDONLY) < 0))
 		return ;
 	if (fstat(fd, &buf) < 0)
@@ -127,6 +126,7 @@ void	process_file(char *name, char *path)
 		return ((void)close(fd));
 	if (S_ISDIR(buf.st_mode))
 	{
+	printf("%s\n", path);
 		close(fd);
 		return (process_directory(path));
 	}
