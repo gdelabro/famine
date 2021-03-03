@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = famine
+NAME = Famine
 
 SRC_PATH = src
 SRC_NAME = main.c process_file.c check_address.c check_already_infected.c
