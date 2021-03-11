@@ -11,6 +11,8 @@ void	process_directory(char *dir_name)
 		return ;
 	while ((dir_entry = readdir(stream)) != NULL)
 	{
+		if (!strcmp(dir_entry->d_name, ".") || !strcmp(dir_entry->d_name, ".."))
+			continue ;
 		filename = malloc(strlen(dir_name) + strlen(dir_entry->d_name) + 2);
 		sprintf(filename, "%s/%s%c", dir_name, dir_entry->d_name, 0);
 		process_file(dir_entry->d_name, filename);
