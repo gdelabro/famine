@@ -6,14 +6,15 @@
 #    By: gdelabro <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 19:47:08 by gdelabro          #+#    #+#              #
-#    Updated: 2021/02/17 18:21:20 by gdelabro         ###   ########.fr        #
+#    Updated: 2021/03/26 20:37:28 by gdelabro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Famine
 
 SRC_PATH = src
-SRC_NAME = main.c process_file.c check_address.c check_already_infected.c
+SRC_NAME = main.c process_file.c check_address.c check_already_infected.c\
+check_proc.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -25,7 +26,6 @@ SRC = $(addprefix $(SRC_PATH)/,$(SR_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
 all: $(NAME)
-
 
 $(NAME): $(OBJ)
 	@printf "\n"
@@ -49,4 +49,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re asm

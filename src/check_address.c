@@ -12,7 +12,7 @@ void	*my_address_pages(int mode, void *ptr, uint32_t size)
 	}
 	if (mode == 2)
 	{
-		if (ptr < ptr_start || ptr >= ptr_end)
+		if (ptr < ptr_start || ptr > ptr_end)
 			return (NULL);
 		return ((void*)1);
 	}

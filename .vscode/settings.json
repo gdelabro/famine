@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"famine.h": "c",
+		"fcntl.h": "c"
+	}
+}
